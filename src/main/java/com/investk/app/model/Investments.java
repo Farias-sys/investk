@@ -65,8 +65,19 @@ public class Investments {
 
     /*Sets */
 
+    public void setLabel(String label){
+        this.label = label;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
+    }
+
     public void setYield(float yield){
         this.yield = yield;
     }
-
+    
+    public void setBank(Banks bank){
+        this.bank = bank;
+    }
 }

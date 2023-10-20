@@ -53,4 +53,18 @@ public class Transactions {
     public boolean getType(){
         return type;
     }
+
+    // Setters
+
+    public void setValue(float value){
+        this.value = value;
+    }
+
+    public void setDateCreated(LocalDate date_created){
+        this.date_created = date_created;
+    }
+
+    public void setType(boolean type){
+        this.type = type;
+    }
 }
