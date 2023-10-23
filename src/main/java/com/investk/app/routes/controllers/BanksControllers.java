@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +57,26 @@ public class BanksControllers {
             // TODO: handle exception
             return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 
+        }
+    }
+
+    @PostMapping(value = "/update/{bank_id}")
+    public void updateBank(@PathVariable("bank_id") long bank_id, @RequestBody Banks bank){
+        try {
+            Banks _bank = banksRepository.findById(bank_id).get();
+            _bank.setName(bank.getName() != null ? bank.getName() : _bank.getName());
+            banksRepository.save(_bank);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    @DeleteMapping(value = "/delete/{bank_id}")
+    public void deleteBank(@PathVariable("bank_id") long bank_id){
+        try {
+            banksRepository.deleteById(bank_id);
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 

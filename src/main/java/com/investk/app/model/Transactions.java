@@ -17,6 +17,9 @@ public class Transactions {
     @ManyToOne
     private Investments investment;
 
+    @Column(name = "label")
+    private String label;
+
     @Column(name = "value")
     private float value;
 
@@ -32,15 +35,20 @@ public class Transactions {
 
     // Constructor
 
-    public Transactions(Users tenant, Investments investment, float value, LocalDate date_created, boolean type){
+    public Transactions(Users tenant, Investments investment, String label,float value, LocalDate date_created, boolean type){
         this.tenant = tenant;
         this.investment = investment;
+        this.label = label;
         this.value = value;
         this.date_created = date_created;
         this.type = type;
     }
 
     // Getters
+
+    public String getLabel(){
+        return label;
+    }
 
     public float getValue(){
         return value;
@@ -55,6 +63,10 @@ public class Transactions {
     }
 
     // Setters
+
+    public void setLabel(String label){
+        this.label = label;
+    }
 
     public void setValue(float value){
         this.value = value;

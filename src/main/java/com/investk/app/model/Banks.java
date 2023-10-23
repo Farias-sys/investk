@@ -49,4 +49,10 @@ public class Banks {
         return total_invested;
     }
 
+    // Setters
+
+    public void setName(String name){
+        this.name = name;
+    }
+
 }

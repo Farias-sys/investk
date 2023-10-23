@@ -65,23 +65,15 @@ public class InvestmentsControllers {
         }
 
     }
-
-    @DeleteMapping("/delete/{investment_id}")
-    public void deleteInvestment(@PathVariable("investment_id") long investment_id){
-        try {
-            investmentsRepository.deleteById(investment_id);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
+    
     @PostMapping(value = "/update/{investment_id}")
     public void updateInvestment(@PathVariable("investment_id") long investment_id, @RequestBody Investments investment){
         try {
             Investments _investment = investmentsRepository.findById(investment_id).get();
-            _investment.setLabel(investment.getLabel());
-            _investment.setDescription(investment.getDescription());
-            _investment.setYield(investment.getYield());
+            _investment.setLabel(investment.getLabel() != null ? investment.getLabel() : _investment.getLabel());
+            _investment.setDescription(investment.getDescription() != null ? investment.getDescription() : _investment.getDescription());
+            _investment.setYield(investment.getYield() != 0.00 ? investment.getYield() : _investment.getYield());    
+            investmentsRepository.save(_investment);
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -99,6 +91,27 @@ public class InvestmentsControllers {
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping(value = "/get/yield/{investment_id}")
+    public ResponseEntity<Float> getInvestmentYield(@PathVariable("investment_id") long investment_id){
+        try {
+            Investments _investment = investmentsRepository.findById(investment_id).get();
+            float investment_yield = _investment.getYield();
+            return new ResponseEntity<Float>(investment_yield, HttpStatus.OK);
+        } catch (Exception e) {
+            // TODO: handle exception
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @DeleteMapping("/delete/{investment_id}")
+    public void deleteInvestment(@PathVariable("investment_id") long investment_id){
+        try {
+            investmentsRepository.deleteById(investment_id);
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 }
