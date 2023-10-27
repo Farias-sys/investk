@@ -19,12 +19,6 @@ public class Users {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "total_invested")
-    private float total_invested;
-
-    @Column(name = "total_yield")
-    private double total_yield;
-
     public Users() {
 
     }
@@ -33,12 +27,10 @@ public class Users {
      * @param email
      * @param password
      */
-    public Users(String email, String password, String name, float total_invested, double total_yield) {
+    public Users(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.total_invested = total_invested;
-        this.total_yield = total_yield;
     }
 
     // Gets
@@ -59,14 +51,6 @@ public class Users {
         return password;
     }
 
-    public float getTotalInvested(){
-        return total_invested;
-    }
-
-    public double getTotalYield(){
-        return total_yield;
-    }
-
     // Sets
 
     public void setEmail(String email){
@@ -75,13 +59,5 @@ public class Users {
 
     public void setPassword(String password){
         this.password = password;
-    }
-
-    public void setTotalInvested(float total_invested){
-        this.total_invested = total_invested;
-    }
-
-    public void setTotalYield(double total_yield){
-        this.total_yield = total_yield;
     }
 }

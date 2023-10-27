@@ -36,14 +36,11 @@ public class InvestmentsControllers {
     @Autowired
     BanksRepository banksRepository;
 
-    // TODO: [TenantArbitrarySet] Esse ID deve ser obtido originalmente e não pode ser estático
-    long tenant_id = 1;
-
-    @PostMapping(value = "/create")
-    public void createInvestment(@RequestBody Investments investment){
+    @PostMapping(value = "/create/{tenant_id}")
+    public void createInvestment(@PathVariable("tenant_id") long tenant_id,@RequestBody Investments investment){
         try {
             Users _users = usersRepository.findById(tenant_id).get();
-            Investments _investment = new Investments(_users, investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield());
+            Investments _investment = new Investments(_users, investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield(), investment.getDateCreated(), investment.getPlanedInterval());
             investmentsRepository.save(_investment);
         } catch (Exception e) {
             // TODO: handle exception
@@ -79,8 +76,8 @@ public class InvestmentsControllers {
         }
     }
 
-    @GetMapping(value = "/get")
-    public ResponseEntity<List<Investments>> listInvestments(){
+    @GetMapping(value = "/get/{tenant_id}")
+    public ResponseEntity<List<Investments>> listInvestments(@PathVariable("tenant_id") long tenant_id){
         try {
             Users _users = usersRepository.findById(tenant_id).get();
             List<Investments> investments = new ArrayList<Investments>();
@@ -88,18 +85,6 @@ public class InvestmentsControllers {
             investmentsRepository.findByTenant(_users).forEach(investments::add);
             return new ResponseEntity<List<Investments>>(investments, HttpStatus.OK);
 
-        } catch (Exception e) {
-            // TODO: handle exception
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping(value = "/get/yield/{investment_id}")
-    public ResponseEntity<Float> getInvestmentYield(@PathVariable("investment_id") long investment_id){
-        try {
-            Investments _investment = investmentsRepository.findById(investment_id).get();
-            float investment_yield = _investment.getYield();
-            return new ResponseEntity<Float>(investment_yield, HttpStatus.OK);
         } catch (Exception e) {
             // TODO: handle exception
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

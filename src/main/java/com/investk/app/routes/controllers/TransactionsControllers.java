@@ -35,16 +35,12 @@ public class TransactionsControllers {
     @Autowired
     UsersRepository usersRepository;
 
-    // TODO: [TenantArbitrarySet] Esse ID deve ser obtido originalmente e não pode ser estático
-    long tenant_id = 1;
-
     @PostMapping(value = "/create/{investment_id}")
     public void createTransaction(@PathVariable("investment_id") long investment_id, @RequestBody Transactions transaction){
         try {
-            Users _user = usersRepository.findById(tenant_id).get();
             Investments _investment = investmentsRepository.findById(investment_id).get();
 
-            Transactions _transaction = new Transactions(_user, _investment, transaction.getLabel(), transaction.getValue(), transaction.getDateCreated(), transaction.getType());
+            Transactions _transaction = new Transactions(_investment.getTenant(), _investment, transaction.getLabel(), transaction.getValue(), transaction.getDateCreated(), transaction.getType());
             transactionsRepository.save(_transaction);
         } catch (Exception e) {
             // TODO: handle exception

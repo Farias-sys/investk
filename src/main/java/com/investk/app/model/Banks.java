@@ -16,19 +16,15 @@ public class Banks {
     @Column(name="name")
     private String name;
 
-    @Column(name="total_invested")
-    private float total_invested;
-
     public Banks(){
 
     }
 
     // Constructor
 
-    public Banks(Users tenant, String name, float total_invested){
+    public Banks(Users tenant, String name){
         this.tenant = tenant;
         this.name = name;
-        this.total_invested = total_invested;
     }
 
     // Gets
@@ -43,10 +39,6 @@ public class Banks {
 
     public String getName(){
         return name;
-    }
-
-    public float getTotalInvested(){
-        return total_invested;
     }
 
     // Setters

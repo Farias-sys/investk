@@ -22,15 +22,10 @@ public class UsersControllers {
     @Autowired
     UsersRepository usersRepository;
 
-    private class UserLoginRequest{
-        private String email;
-        private String password;
-    }
-
     @PostMapping(value = "/create")
     public void createUser(@RequestBody Users user){
         try {
-            Users _user = new Users(user.getEmail(), DigestUtils.md5Hex(user.getPassword()).toUpperCase(), user.getName(), user.getTotalInvested(), user.getTotalYield());
+            Users _user = new Users(user.getEmail(), DigestUtils.md5Hex(user.getPassword()).toUpperCase(), user.getName());
             usersRepository.save(_user);
         } catch (Exception e) {
             // TODO: handle exception
@@ -38,14 +33,15 @@ public class UsersControllers {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<Users> loginUser(@RequestBody UserLoginRequest user_req){
+    public ResponseEntity<Users> loginUser(@RequestBody Users user_req){
         try {
-            String email_req = user_req.email;    
-            String password_req = user_req.password;
+            String email_req = user_req.getEmail();    
+            String password_req = user_req.getPassword();
             String password_req_encrypted = DigestUtils.md5Hex(password_req).toUpperCase();
 
             Users _user = usersRepository.findByEmail(email_req).get(0);
             if(_user.getPassword().equals(password_req_encrypted)){
+                _user.setPassword("não vai não");
                 return new ResponseEntity<Users>(_user, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -1,19 +1,21 @@
 package com.investk.app.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="investments")
 public class Investments {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
     private Users tenant;
 
     @Column(name="type")
-    private char type;
+    private String type;
 
     @Column(name="label")
     private String label;
@@ -25,25 +27,39 @@ public class Investments {
     private Banks bank;
 
     @Column(name = "initial_value")
-    private float initial_value;
+    private float initialValue;
 
     @Column(name = "yield")
     private float yield;
+
+    @Column(name = "date_created")
+    private LocalDate dateCreated;
+
+    @Column(name = "planed_interval")
+    private float planedInterval;
 
     public Investments(){
 
     }
 
-    public Investments(Users tenant, char type, String label, String description, float initial_value, float yield){
+    public Investments(Users tenant, String type, String label, String description, float initial_value, float yield, LocalDate dateCreated, float planedInterval){
         this.tenant = tenant;
         this.type = type;
         this.label = label;
         this.description = description;
+        this.initialValue = initial_value;
+        this.yield = yield;
+        this.dateCreated = dateCreated;
+        this.planedInterval = planedInterval;
     }
 
     /*Gets */
 
-    public char getType(){
+    public long getId(){
+        return id;
+    }
+
+    public String getType(){
         return type;
     }
 
@@ -56,11 +72,23 @@ public class Investments {
     }
 
     public float getInitialValue(){
-        return initial_value;
+        return initialValue;
     }
 
     public float getYield(){
         return yield;
+    }
+
+    public Users getTenant(){
+        return tenant;
+    }
+
+    public LocalDate getDateCreated(){
+        return dateCreated;
+    }
+
+    public float getPlanedInterval(){
+        return planedInterval;
     }
 
     /*Sets */

@@ -24,7 +24,7 @@ public class Transactions {
     private float value;
 
     @Column(name = "date_created")
-    private LocalDate date_created;
+    private LocalDate dateCreated;
 
     @Column(name= "type")
     private boolean type;
@@ -40,7 +40,7 @@ public class Transactions {
         this.investment = investment;
         this.label = label;
         this.value = value;
-        this.date_created = date_created;
+        this.dateCreated = date_created;
         this.type = type;
     }
 
@@ -55,7 +55,7 @@ public class Transactions {
     }
 
     public LocalDate getDateCreated(){
-        return date_created;
+        return dateCreated;
     }
 
     public boolean getType(){
@@ -73,7 +73,7 @@ public class Transactions {
     }
 
     public void setDateCreated(LocalDate date_created){
-        this.date_created = date_created;
+        this.dateCreated = date_created;
     }
 
     public void setType(boolean type){

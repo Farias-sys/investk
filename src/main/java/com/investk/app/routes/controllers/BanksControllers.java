@@ -29,23 +29,19 @@ public class BanksControllers {
 
     @Autowired
     UsersRepository usersRepository;
-    
-    // TODO: [TenantArbitrarySet] Esse ID deve ser obtido originalmente e não pode ser estático
-    long tenant_id = 1;
 
-    @PostMapping(value = "/create")
-    public void createBank(@RequestBody Banks bank){
+    @PostMapping(value = "/create/{tenant_id}")
+    public void createBank(@PathVariable("tenant_id") long tenant_id,@RequestBody Banks bank){
         try {
             Users _users = usersRepository.findById(tenant_id).get();
-            Banks _bank = new Banks(_users, bank.getName(), bank.getTotalInvested());
+            Banks _bank = new Banks(_users, bank.getName());
             banksRepository.save(_bank);
         } catch (Exception e) {
             // TODO: handle exception
         }
     }
-    // TODO: [TenantArbitrarySet] Esse ID deve ser obtido originalmente e não pode ser estático
-    @GetMapping("/get")
-    public ResponseEntity<List<Banks>> listBanks(){
+    @GetMapping("/get/{tenant_id}")
+    public ResponseEntity<List<Banks>> listBanks(@PathVariable("tenant_id") long tenant_id){
         try {
             Users _users = usersRepository.findById(tenant_id).get();
             List<Banks> banks = new ArrayList<Banks>();
