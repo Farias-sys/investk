@@ -36,11 +36,12 @@ public class InvestmentsControllers {
     @Autowired
     BanksRepository banksRepository;
 
-    @PostMapping(value = "/create/{tenant_id}")
-    public void createInvestment(@PathVariable("tenant_id") long tenant_id,@RequestBody Investments investment){
+    @PostMapping(value = "/create/{tenant_id}/{bank_id}")
+    public void createInvestment(@PathVariable("tenant_id") long tenant_id,@PathVariable("bank_id") long bank_id,@RequestBody Investments investment){
         try {
             Users _users = usersRepository.findById(tenant_id).get();
-            Investments _investment = new Investments(_users, investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield(), investment.getDateCreated(), investment.getPlanedInterval());
+            Banks _bank = banksRepository.findById(bank_id).get();
+            Investments _investment = new Investments(_users, _bank,investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield(), investment.getDateCreated(), investment.getPlanedInterval());
             investmentsRepository.save(_investment);
         } catch (Exception e) {
             // TODO: handle exception

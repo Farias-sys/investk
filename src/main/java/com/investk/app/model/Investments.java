@@ -42,8 +42,9 @@ public class Investments {
 
     }
 
-    public Investments(Users tenant, String type, String label, String description, float initial_value, float yield, LocalDate dateCreated, float planedInterval){
+    public Investments(Users tenant, Banks bank,String type, String label, String description, float initial_value, float yield, LocalDate dateCreated, float planedInterval){
         this.tenant = tenant;
+        this.bank = bank;
         this.type = type;
         this.label = label;
         this.description = description;
@@ -89,6 +90,10 @@ public class Investments {
 
     public float getPlanedInterval(){
         return planedInterval;
+    }
+
+    public long getBankId(){
+        return bank.getId();
     }
 
     /*Sets */
