@@ -41,7 +41,7 @@ public class InvestmentsControllers {
         try {
             Users _users = usersRepository.findById(tenant_id).get();
             Banks _bank = banksRepository.findById(bank_id).get();
-            Investments _investment = new Investments(_users, _bank,investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield(), investment.getDateCreated(), investment.getPlanedInterval());
+            Investments _investment = new Investments(_users, _bank,investment.getType(), investment.getLabel(), investment.getDescription(), investment.getInitialValue(), investment.getYield(), investment.getDateCreated(), investment.getDateDeadline());
             investmentsRepository.save(_investment);
         } catch (Exception e) {
             // TODO: handle exception

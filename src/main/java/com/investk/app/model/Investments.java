@@ -35,14 +35,14 @@ public class Investments {
     @Column(name = "date_created")
     private LocalDate dateCreated;
 
-    @Column(name = "planed_interval")
-    private float planedInterval;
+    @Column(name = "date_deadline")
+    private LocalDate dateDeadline;
 
     public Investments(){
 
     }
 
-    public Investments(Users tenant, Banks bank,String type, String label, String description, float initial_value, float yield, LocalDate dateCreated, float planedInterval){
+    public Investments(Users tenant, Banks bank,String type, String label, String description, float initial_value, float yield, LocalDate dateCreated, LocalDate dateDeadline){
         this.tenant = tenant;
         this.bank = bank;
         this.type = type;
@@ -51,7 +51,7 @@ public class Investments {
         this.initialValue = initial_value;
         this.yield = yield;
         this.dateCreated = dateCreated;
-        this.planedInterval = planedInterval;
+        this.dateDeadline = dateDeadline;
     }
 
     /*Gets */
@@ -88,8 +88,8 @@ public class Investments {
         return dateCreated;
     }
 
-    public float getPlanedInterval(){
-        return planedInterval;
+    public LocalDate getDateDeadline(){
+        return dateDeadline;
     }
 
     public long getBankId(){
