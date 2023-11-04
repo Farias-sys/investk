@@ -54,7 +54,7 @@ public class Investments {
         this.dateDeadline = dateDeadline;
     }
 
-    /*Gets */
+    /*Getters */
 
     public long getId(){
         return id;
@@ -96,7 +96,7 @@ public class Investments {
         return bank.getId();
     }
 
-    /*Sets */
+    /*Setters */
 
     public void setLabel(String label){
         this.label = label;
@@ -112,5 +112,13 @@ public class Investments {
     
     public void setBank(Banks bank){
         this.bank = bank;
+    }
+
+    public void setDateCreated(LocalDate dateCreated){
+        this.dateCreated = dateCreated;
+    }
+
+    public void setDateDeadline(LocalDate dateDeadline){
+        this.dateDeadline = dateDeadline;
     }
 }

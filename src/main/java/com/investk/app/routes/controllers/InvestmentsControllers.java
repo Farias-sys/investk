@@ -71,6 +71,8 @@ public class InvestmentsControllers {
             _investment.setLabel(investment.getLabel() != null ? investment.getLabel() : _investment.getLabel());
             _investment.setDescription(investment.getDescription() != null ? investment.getDescription() : _investment.getDescription());
             _investment.setYield(investment.getYield() != 0.00 ? investment.getYield() : _investment.getYield());    
+            _investment.setDateCreated(investment.getDateCreated() != null ? investment.getDateCreated() : _investment.getDateCreated());
+            _investment.setDateDeadline(investment.getDateDeadline() != null ? investment.getDateDeadline() : _investment.getDateDeadline());
             investmentsRepository.save(_investment);
         } catch (Exception e) {
             // TODO: handle exception
