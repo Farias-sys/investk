@@ -23,13 +23,21 @@ public class UsersControllers {
     UsersRepository usersRepository;
 
     @PostMapping(value = "/create")
-    public void createUser(@RequestBody Users user){
-        try {
+    public ResponseEntity<String> createUser(@RequestBody Users user){
+        try {  
+            Users find_existent_user = usersRepository.findByEmail(user.getEmail()).get(0);
+            
+            if(find_existent_user.getEmail().equals(user.getEmail())){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+
             Users _user = new Users(user.getEmail(), DigestUtils.md5Hex(user.getPassword()).toUpperCase(), user.getName());
             usersRepository.save(_user);
+
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
-            // TODO: handle exception
-        }
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } 
     }
 
     @PostMapping(value = "/login")
